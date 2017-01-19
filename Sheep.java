@@ -3,24 +3,14 @@ import java.util.Scanner;
 
 public class Sheep {
 
-	public static int countSheep(String s) {
+	public static int countSheep(String input, Scanner s) {
 		String comparable = "";
 		int sheepCount = 0;
 
-		for (int i = 0; i < s.length(); i++) {
-			if (s.charAt(i) != ' ') {
-				comparable += s.charAt(i);
-			}
-			if (!s.contains(" ") && i == s.length() - 1) {
-				if (comparable.equals("sheep")) {
-					sheepCount++;
-					comparable = ""; // reset
-				}
-			} else {
-				if (comparable.equals("sheep") && i < s.length() - 1 && s.charAt(i + 1) == ' ') {
-					sheepCount++;
-					comparable = ""; // reset
-				}
+		while (s.hasNext()) {
+			comparable = s.next();
+			if (comparable.equalsIgnoreCase(input)) {
+				sheepCount++;
 			}
 		}
 		return sheepCount;
@@ -29,10 +19,14 @@ public class Sheep {
 	public static void main(String[] args) {
 		try {
 			Scanner s = new Scanner(new File("Sheep.txt"));
-			System.out.println(s.nextInt());
-			for (int i = 0; i < s.nextInt(); i++) {
-				
-			}
+			Scanner r = new Scanner(System.in);
+			String input = "";
+
+			System.out.println("Input a word to find the number of recurrences.");
+		  input = r.nextLine();
+
+			System.out.println("Occurences of " + input + ": " + countSheep(input, s));
+
 		} catch (Exception e) {
 			System.out.println("File not found.");
 		}
